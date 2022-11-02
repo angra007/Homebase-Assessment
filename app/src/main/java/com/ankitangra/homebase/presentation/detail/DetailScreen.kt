@@ -1,5 +1,6 @@
 package com.ankitangra.homebase.presentation.detail
 
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 
@@ -7,4 +8,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 fun DetailScreen (
     viewModel: DetailViewModel = hiltViewModel()
 ) {
+
+    Text(text = "Here")
 }
