@@ -1,5 +1,6 @@
 package com.ankitangra.homebase.presentation.detail
 
+import android.provider.Settings.System.DATE_FORMAT
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,31 +21,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ankitangra.homebase.core.components.AppBar
 import com.ankitangra.homebase.core.components.ExpandableTextView
 import com.swift.intentsender.utility.SelectableTextField
 import com.swift.intentsender.utility.showTimePicker
-import java.text.SimpleDateFormat
-import java.util.Locale
-
-private const val DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
 
 @Composable
 fun DetailScreen (
     onBackPressed: () -> Unit,
     viewModel: DetailViewModel = hiltViewModel()
 ) {
-
-    val startDate = remember {
-        mutableStateOf(TextFieldValue())
-    }
-
-    val endDate = remember {
-        mutableStateOf(TextFieldValue())
-    }
 
     val employeeSelected = remember {
         mutableStateOf(false)
@@ -59,6 +47,7 @@ fun DetailScreen (
     }
 
     val context = LocalContext.current
+    val state = viewModel.state
 
 
     Column(modifier = Modifier
@@ -98,19 +87,21 @@ fun DetailScreen (
                 
                 Spacer(modifier = Modifier.width(8.dp))
                 
-                SelectableTextField(
-                    value = startDate.value,
+                SelectableTextField (
+                    value = TextFieldValue (state.startDate),
                     modifier = Modifier.width(200.dp),
-                    onValueChange = { startDate.value = it },
-                    label = { Text(text = "Select a day") }) {
+                    onValueChange = { },
+                    label = { }
+                ) {
                     showTimePicker(
                         context,
                         1991,
                         1,
                         11,
                     ) {
-                        val dateFormatted = SimpleDateFormat(DATE_FORMAT, Locale.US).format(it)
-                        startDate.value = TextFieldValue(dateFormatted)
+                        viewModel.handleEvent(
+                            DetailScreenEvents.DidEnterStartDate(it)
+                        )
                     }
                 }
             }
@@ -131,10 +122,10 @@ fun DetailScreen (
                 Spacer(modifier = Modifier.width(8.dp))
 
                 SelectableTextField(
-                    value = endDate.value,
+                    value = TextFieldValue (state.endDate),
                     modifier = Modifier.width(200.dp),
-                    onValueChange = { endDate.value = it },
-                    label = { Text(text = "Select a day") }
+                    onValueChange = {  },
+                    label = { }
                 ) {
                     showTimePicker(
                         context,
@@ -142,8 +133,9 @@ fun DetailScreen (
                         1,
                         11,
                     ) {
-                        val dateFormatted = SimpleDateFormat(DATE_FORMAT, Locale.US).format(it)
-                        endDate.value = TextFieldValue(dateFormatted)
+                        viewModel.handleEvent(
+                            DetailScreenEvents.DidEnterEndDate(it)
+                        )
                     }
                 }
             }
@@ -151,12 +143,15 @@ fun DetailScreen (
             Spacer(modifier = Modifier.height(16.dp))
 
             ExpandableTextView(
-                textValue = "Anna",
+                textValue = state.selectedEmployee,
                 label = "Select an employee",
                 items = listOf("Anna", "Anton", "Eugene", "Keyvon"),
                 modifier = Modifier.width(300.dp),
                 expanded = employeeSelected.value,
                 onItemSelected = {
+                    viewModel.handleEvent(
+                        DetailScreenEvents.DidSelectEmployee( it )
+                    )
                     employeeSelected.value = !employeeSelected.value
                 },
                 toggleState = {
@@ -167,12 +162,15 @@ fun DetailScreen (
             Spacer(modifier = Modifier.height(16.dp))
 
             ExpandableTextView(
-                textValue = "Waitress",
+                textValue = state.selectedRole,
                 label = "Select a role",
                 items = listOf("Waitress", "Prep", "Cook", "Clean"),
                 modifier = Modifier.width(300.dp),
                 expanded = roleSelected.value,
                 onItemSelected = {
+                    viewModel.handleEvent(
+                        DetailScreenEvents.DidSelectRole( it )
+                    )
                     roleSelected.value = !roleSelected.value
                 },
                 toggleState = {
@@ -183,12 +181,15 @@ fun DetailScreen (
             Spacer(modifier = Modifier.height(16.dp))
 
             ExpandableTextView(
-                textValue = "Red",
+                textValue = state.selectedColor,
                 label = "Select a color",
                 items = listOf("Red", "Green", "Blue"),
                 modifier = Modifier.width(300.dp),
                 expanded = colorSelected.value,
                 onItemSelected = {
+                    viewModel.handleEvent(
+                        DetailScreenEvents.DidSelectRole( it )
+                    )
                     colorSelected.value = !colorSelected.value
                 },
                 toggleState = {
