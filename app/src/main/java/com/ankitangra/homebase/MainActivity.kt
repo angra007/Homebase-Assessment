@@ -42,7 +42,9 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable(Route.DETAIL) {
-                            DetailScreen()
+                            DetailScreen(onBackPressed = {
+                                navController.popBackStack()
+                            })
                         }
                     }
                 }

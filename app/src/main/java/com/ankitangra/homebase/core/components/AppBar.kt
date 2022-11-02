@@ -21,6 +21,8 @@ import androidx.compose.ui.unit.dp
 fun AppBar(
     title: String,
     titleColor: Color,
+    leftBarButtonText: String? = null,
+    leftBarButtonClicked: (() -> Unit)? = null,
     rightBarButtonText: String,
     rightButtonClicked: () -> Unit
 ) {
@@ -31,6 +33,21 @@ fun AppBar(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
+
+        leftBarButtonClicked?.let { callback ->
+            leftBarButtonText?.let { leftTitle ->
+                Button(
+                    onClick = callback,
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent)
+                ) {
+                    Text(
+                        text = leftTitle,
+                        style = MaterialTheme.typography.body1,
+                        color = titleColor
+                    )
+                }
+            }
+        }
 
         Text(
             text = title,

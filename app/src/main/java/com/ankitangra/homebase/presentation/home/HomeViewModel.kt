@@ -25,8 +25,6 @@ class HomeViewModel @Inject constructor(
     private fun getInitialData() {
         viewModelScope.launch {
             val shifts = getShift()
-
-
             state = state.copy (
                 shifts = shifts
             )
