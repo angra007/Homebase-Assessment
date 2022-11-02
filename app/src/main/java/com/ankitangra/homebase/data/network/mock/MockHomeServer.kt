@@ -25,15 +25,23 @@ class MockHomeServer: HomeBaseAPI {
             color = "blue"
         )
 
-        val shift3 = NetworkShift(
-            role = "Front of House",
-            name = "Eugene",
+        val shift4 = NetworkShift(
+            role = "Prep",
+            name = "Anton",
             start_date = "2018-04-20 9:00:00 -08:00",
             end_date = "2018-4-20 12:00:00 -08:00",
-            color = "red"
+            color = "blue"
         )
 
-        val shifts = listOf(shift1, shift2, shift3)
+        val shift5 =  NetworkShift(
+            role = "Prep",
+            name = "Anton",
+            start_date = "2018-04-20 9:00:00 -08:00",
+            end_date = "2018-4-20 12:00:00 -08:00",
+            color = "blue"
+        )
+
+        val shifts = listOf(shift1, shift2, shift4, shift5)
 
         return ShiftDto(shifts = shifts)
     }
