@@ -1,5 +1,7 @@
 package com.ankitangra.homebase.presentation.home
 
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -8,5 +10,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 fun HomeScreen (
     viewModel: HomeViewModel = hiltViewModel()
 ) {
-    Text(text = viewModel.message)
+    LazyColumn() {
+        items(viewModel.state.shifts) {
+            Text(text = it.name)
+        }
+    }
 }
