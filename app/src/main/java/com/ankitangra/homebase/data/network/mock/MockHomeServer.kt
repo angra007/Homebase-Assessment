@@ -8,6 +8,8 @@ import com.ankitangra.homebase.domain.model.Shift
 
 class MockHomeServer: HomeBaseAPI {
 
+    private var shiftDto = createShifts()
+
     private fun createShifts(): ShiftDto {
         val shift1 = NetworkShift(
             role = "Waiter",
@@ -46,5 +48,11 @@ class MockHomeServer: HomeBaseAPI {
         return ShiftDto(shifts = shifts)
     }
 
-    override fun getShifts(): ShiftDto = createShifts()
+    override fun getShifts(): ShiftDto = shiftDto
+
+    override fun createShift(shift: NetworkShift) {
+        val allShifts = shiftDto.shifts.toMutableList()
+        allShifts.add(shift)
+        shiftDto.shifts = allShifts
+    }
 }

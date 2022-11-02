@@ -1,5 +1,6 @@
 package com.ankitangra.homebase.data.repository
 
+import com.ankitangra.homebase.data.mapper.toNetworkShift
 import com.ankitangra.homebase.data.mapper.toShift
 import com.ankitangra.homebase.data.network.mock.MockHomeServer
 import com.ankitangra.homebase.domain.model.Shift
@@ -14,8 +15,8 @@ class HomeBaseRepositoryImpl(
         return shifts.shifts.map { it.toShift() }
     }
 
-    override suspend fun createShift() {
-        TODO("Not yet implemented")
+    override suspend fun createShift(shift: Shift) {
+        val networkShift = shift.toNetworkShift()
+        server.createShift(networkShift)
     }
-
 }

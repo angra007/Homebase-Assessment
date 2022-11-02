@@ -13,3 +13,12 @@ fun NetworkShift.toShift(): Shift {
         color = this.color
     )
 }
+fun Shift.toNetworkShift(): NetworkShift {
+    return NetworkShift(
+        role = this.role,
+        name = this.name,
+        start_date = this.startDate,
+        end_date = this.endDate,
+        color = this.color
+    )
+}

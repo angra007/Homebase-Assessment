@@ -2,7 +2,7 @@ package com.ankitangra.homebase.data.network.dto
 
 
 data class ShiftDto (
-    val shifts: List<NetworkShift>
+    var shifts: List<NetworkShift>
 )
 
 data class NetworkShift (

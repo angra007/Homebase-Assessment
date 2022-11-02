@@ -67,7 +67,9 @@ fun DetailScreen (
             },
             rightBarButtonText = "Save",
             rightButtonClicked = {
-
+                viewModel.handleEvent(
+                    DetailScreenEvents.DidSave
+                )
             }
         )
 

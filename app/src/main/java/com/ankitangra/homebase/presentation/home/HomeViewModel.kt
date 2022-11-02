@@ -3,6 +3,8 @@ package com.ankitangra.homebase.presentation.home
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ankitangra.homebase.domain.usecase.GetShift
@@ -18,11 +20,7 @@ class HomeViewModel @Inject constructor(
     var state by mutableStateOf(HomeState())
         private set
 
-    init {
-        getInitialData()
-    }
-
-    private fun getInitialData() {
+    fun getInitialData() {
         viewModelScope.launch {
             val shifts = getShift()
             state = state.copy (

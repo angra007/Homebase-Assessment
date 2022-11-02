@@ -8,4 +8,5 @@ sealed class DetailScreenEvents {
     data class DidSelectEmployee(val employeeName: String): DetailScreenEvents()
     data class DidSelectRole(val role: String): DetailScreenEvents()
     data class DidSelectColor(val color: String): DetailScreenEvents()
+    object DidSave: DetailScreenEvents()
 }
