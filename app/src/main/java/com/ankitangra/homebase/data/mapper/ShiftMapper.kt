@@ -1,5 +1,6 @@
 package com.ankitangra.homebase.data.mapper
 
+import com.ankitangra.homebase.core.domain.Colors
 import com.ankitangra.homebase.data.network.dto.NetworkShift
 import com.ankitangra.homebase.domain.model.Shift
 

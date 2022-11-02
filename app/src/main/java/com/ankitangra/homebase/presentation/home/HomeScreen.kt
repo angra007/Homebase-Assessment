@@ -29,6 +29,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ankitangra.homebase.core.components.AppBar
+import com.ankitangra.homebase.core.domain.Colors
 import com.ankitangra.homebase.ui.theme.Shapes
 
 @Composable
@@ -78,7 +79,7 @@ fun HomeScreen (
                     role = it.role,
                     date = "Fri 21",
                     day = "12",
-                    color = Color.Red
+                    color = it.color
                 )
             }
         }
@@ -91,7 +92,7 @@ fun HomeScreenItem(
     role: String,
     date: String,
     day: String,
-    color: Color
+    color: String
 ) {
 
     Row(
@@ -123,7 +124,7 @@ fun HomeScreenItem(
         ) {
 
             Canvas(modifier = Modifier.size(64.dp), onDraw = {
-                drawCircle(color = color)
+                drawCircle(color = Colors.getValue(color))
             })
 
             Spacer(modifier = Modifier.width(2.dp))
